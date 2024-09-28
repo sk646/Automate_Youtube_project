@@ -12,7 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.devtools.idealized.Javascript;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,7 +19,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -76,7 +74,7 @@ public class TestCases extends ExcelDataProvider{ // Lets us read the data
             driver.get("https://www.youtube.com/");
             String URL = driver.getCurrentUrl();
             System.out.println(URL);
-          
+            assertEquals(URL,"https://www.youtube.com/");
             WebElement abt =driver.findElement(By.xpath("//a[text()='About']"));
             Wrappers.elementclick(driver, abt);
             String actualUrl = driver.getCurrentUrl();
@@ -89,14 +87,14 @@ public class TestCases extends ExcelDataProvider{ // Lets us read the data
             }else{
                 System.out.println("Testcase fail");
             }
-
+            WebElement abtElement = driver.findElement(By.xpath("//section[contains(@class,'ytabout')]/h1"));
+            System.out.println(abtElement.getText()); 
             List<WebElement> messageElements = driver.findElements(By.xpath("//main[@id='content']//following::p[contains(@class,'lb-font-display-3 lb-font-color-text-primary')]"));
-            for(WebElement messageElement: messageElements) { 
-            String txt = messageElement.getText();
+            for(int i=0;i<=0;i++) { 
+            String txt = messageElements.get(0).getText();
             System.out.println(txt);
             }
             
-            driver.navigate().back();
             long end = System.currentTimeMillis();
             long elapsedTime = end - start;
             System.out.println("Testcase 01 took: " + (float) elapsedTime / 1000 + "seconds");
